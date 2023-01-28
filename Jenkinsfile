@@ -30,6 +30,12 @@ pipeline {
     }
 
     stage('Deploy') {
+      agent {
+        node {
+          label 'charu-execution-node2'
+        }
+
+      }
       steps {
         sh './mvnw spring-boot:run </dev/null &>/dev/null &'
       }
