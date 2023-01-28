@@ -4,6 +4,7 @@ pipeline {
     stage('compile') {
       steps {
         sh './mvnw clean compile'
+        echo 'Jenkin Job started'
       }
     }
 
