@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'charu-execution-node2'
+    }
+
+  }
   stages {
     stage('compile') {
       steps {
