@@ -35,14 +35,26 @@ pipeline {
     }
 
     stage('Deploy') {
-      agent {
-        node {
-          label 'charu-execution-node2'
+      parallel {
+        stage('Deploy') {
+          agent {
+            node {
+              label 'charu-execution-node2'
+            }
+
+          }
+          steps {
+            sh './mvnw spring-boot:run </dev/null &>/dev/null &'
+          }
         }
 
-      }
-      steps {
-        sh './mvnw spring-boot:run </dev/null &>/dev/null &'
+        stage('Performace') {
+          steps {
+            sh './mvnw verify'
+            perfReport '**/target/jmeter/results/*'
+          }
+        }
+
       }
     }
 
